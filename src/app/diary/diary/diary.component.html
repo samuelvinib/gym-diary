@@ -8,8 +8,9 @@
     <section class="mb-8">
       <h2 class="mb-4 text-xl font-bold">List of entries</h2>
       <ul class="rounded border shadow">
-        <li><app-entry-item /></li>
-        <li><app-entry-item /></li>
+        <li *ngFor="let item of exerciseList">
+          <app-entry-item [exercise-set]="item" />
+        </li>
       </ul>
     </section>
     <button
