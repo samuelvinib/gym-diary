@@ -26,4 +26,8 @@ export class DiaryComponent {
   itemTrackBy(index:number, item:ExerciseSet){
     return item.id;
   }
+
+  addExercise(newSet: ExerciseSet){
+    this.exerciseList.push(newSet);
+  }
 }
