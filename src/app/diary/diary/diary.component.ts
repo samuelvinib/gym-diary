@@ -7,7 +7,6 @@ import { ExerciseSet, ExerciseSetList } from '../interfaces/exercise-set';
   styleUrls: ['./diary.component.css'],
 })
 export class DiaryComponent {
-
   exerciseList: ExerciseSetList = [
     { id: '1', date: new Date(), exercise: 'Deadlift', reps: 15, sets: 3 },
     { id: '2', date: new Date(), exercise: 'Squat', reps: 15, sets: 3 },
@@ -23,11 +22,24 @@ export class DiaryComponent {
     ];
   }
 
-  itemTrackBy(index:number, item:ExerciseSet){
+  itemTrackBy(index: number, item: ExerciseSet) {
     return item.id;
   }
 
-  addExercise(newSet: ExerciseSet){
+  addExercise(newSet: ExerciseSet) {
     this.exerciseList.push(newSet);
+  }
+
+  deleteItem(id: string) {
+    console.log("it's works")
+    this.exerciseList = this.exerciseList.filter((item) => item.id != id);
+  }
+  newRep(exerciseSet: ExerciseSet) {
+    const id = exerciseSet.id;
+    const i = this.exerciseList.findIndex((item) => item.id === id);
+    if (i >= 0) {
+      console.log({...exerciseSet});
+      this.exerciseList[i] = { ...exerciseSet };
+    }
   }
 }
