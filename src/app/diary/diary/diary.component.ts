@@ -1,25 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ExerciseSet, ExerciseSetList } from '../interfaces/exercise-set';
+import { ExerciseSetsService } from '../services/exercise-sets.service';
 
 @Component({
-  selector: 'app-diary',
   templateUrl: './diary.component.html',
   styleUrls: ['./diary.component.css'],
 })
-export class DiaryComponent {
-  exerciseList: ExerciseSetList = [
-    { id: '1', date: new Date(), exercise: 'Deadlift', reps: 15, sets: 3 },
-    { id: '2', date: new Date(), exercise: 'Squat', reps: 15, sets: 3 },
-    { id: '3', date: new Date(), exercise: 'Barbell row', reps: 15, sets: 3 },
-  ];
+export class DiaryComponent implements OnInit {
+  private exerciseSetsService= inject(ExerciseSetsService);
+  exerciseList!: ExerciseSetList;
+   ngOnInit(): void {
+       this.exerciseSetsService
+       .refreshList()
+       .subscribe((dataApi) => (this.exerciseList = dataApi.items));
+   }
 
   newList() {
-    this.exerciseList = [
-      { id: '1', date: new Date(), exercise: 'Deadlift', reps: 15, sets: 3 },
-      { id: '2', date: new Date(), exercise: 'Squat', reps: 15, sets: 3 },
-      { id: '3', date: new Date(), exercise: 'Barbell row', reps: 15, sets: 3 },
-      { id: '4', date: new Date(), exercise: 'Leg Press', reps: 15, sets: 3 },
-    ];
+    this.exerciseSetsService
+      .refreshList()
+      .subscribe((dataApi)=> (this.exerciseList = dataApi.items))
   }
 
   itemTrackBy(index: number, item: ExerciseSet) {
@@ -27,19 +26,25 @@ export class DiaryComponent {
   }
 
   addExercise(newSet: ExerciseSet) {
-    this.exerciseList.push(newSet);
+    this.exerciseSetsService
+      .addNewItem(newSet)
+      .subscribe((_) => this.newList());
   }
 
   deleteItem(id: string) {
-    console.log("it's works")
-    this.exerciseList = this.exerciseList.filter((item) => item.id != id);
+    this.exerciseSetsService
+      .deleteItem(id)
+      .subscribe(()=> {
+        this.exerciseList = this.exerciseList.filter(
+          (exerciseSet) => exerciseSet.id !== id
+        );
+      });
   }
-  newRep(exerciseSet: ExerciseSet) {
-    const id = exerciseSet.id;
-    const i = this.exerciseList.findIndex((item) => item.id === id);
-    if (i >= 0) {
-      console.log({...exerciseSet});
-      this.exerciseList[i] = { ...exerciseSet };
-    }
+
+  newRep(updateSet: ExerciseSet) {
+    const id = updateSet.id ?? '';
+    this.exerciseSetsService
+    .updateItem(id, updateSet)
+    .subscribe();
   }
 }

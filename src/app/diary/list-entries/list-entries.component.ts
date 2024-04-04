@@ -4,13 +4,15 @@ import { ExerciseSet, ExerciseSetList } from '../interfaces/exercise-set';
 @Component({
   selector: 'app-list-entries',
   templateUrl: './list-entries.component.html',
-  styleUrls: ['./list-entries.component.css']
+  styleUrls: ['./list-entries.component.css'],
 })
 export class ListEntriesComponent {
+  // private exerciseSetsService = inject(ExerciseSetsService);
+  // exerciseList = this.exerciseSetsService.getInitialList();
   @Input() exerciseList!: ExerciseSetList;
   @Output() newRepEvent = new EventEmitter<ExerciseSet>();
-  @Output( ) deleteEvent = new EventEmitter<string>();
-  itemTrackBy(index:number, item:ExerciseSet){
+  @Output() deleteEvent = new EventEmitter<string>();
+  itemTrackBy(index: number, item: ExerciseSet) {
     return item.id;
   }
 }
