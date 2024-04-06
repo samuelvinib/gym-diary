@@ -5,7 +5,7 @@ const routes: Routes = [
 {path:'', pathMatch:'full',redirectTo:'home'},
 {
   path:'home',
-  loadChildren: () => import('./diary/diary.module').then((file)=>file.DiaryModule),
+  loadChildren: () => import('./home/home.module').then((file)=>file.HomeModule),
 }
 ];
 

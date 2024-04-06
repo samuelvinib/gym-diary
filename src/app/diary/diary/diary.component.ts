@@ -28,7 +28,7 @@ export class DiaryComponent implements OnInit {
   }
 
   addExercise(newSet: ExerciseSet) {
-    this.router.navigate(['/home/new-template'])
+    this.router.navigate(['/home/new-reactive'])
   }
 
   deleteItem(id: string) {
