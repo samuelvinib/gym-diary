@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ExerciseSet, ExerciseSetList } from '../interfaces/exercise-set';
 import { ExerciseSetsService } from '../services/exercise-sets.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   templateUrl: './diary.component.html',
@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 export class DiaryComponent implements OnInit {
   private exerciseSetsService= inject(ExerciseSetsService);
   private router = inject(Router);
+  private route = inject(ActivatedRoute);
   exerciseList!: ExerciseSetList;
    ngOnInit(): void {
        this.exerciseSetsService
@@ -29,6 +30,11 @@ export class DiaryComponent implements OnInit {
 
   addExercise(newSet: ExerciseSet) {
     this.router.navigate(['/home/new-reactive'])
+  }
+
+  editEntry(updateSet: ExerciseSet) {
+    const id = updateSet.id ?? '';
+    this.router.navigate([`/home/diary/entry/${id}`]);
   }
 
   deleteItem(id: string) {

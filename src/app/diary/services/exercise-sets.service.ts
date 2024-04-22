@@ -28,11 +28,15 @@ export class ExerciseSetsService {
     return this.httpClient.post<ExerciseSet>(this.url,item);
   }
 
-  updateItem(id: string, item: ExerciseSet): Observable<ExerciseSet>{
+  updateItem(id: string, item: Partial<ExerciseSet>): Observable<ExerciseSet>{
     return this.httpClient.put<ExerciseSet>(`${this.url}/${id}`, item);
   }
 
   deleteItem(id: string): Observable<boolean>{
     return this.httpClient.delete<boolean>(`${this.url}/${id}`);
+  }
+
+  getItem(id: string): Observable<ExerciseSet> {
+    return this.httpClient.get<ExerciseSet>(`${this.url}/${id}`)
   }
 }

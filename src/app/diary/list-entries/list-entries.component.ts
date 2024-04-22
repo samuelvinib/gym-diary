@@ -10,7 +10,7 @@ export class ListEntriesComponent {
   // private exerciseSetsService = inject(ExerciseSetsService);
   // exerciseList = this.exerciseSetsService.getInitialList();
   @Input() exerciseList!: ExerciseSetList;
-  @Output() newRepEvent = new EventEmitter<ExerciseSet>();
+  @Output() editEvent = new EventEmitter<ExerciseSet>();
   @Output() deleteEvent = new EventEmitter<string>();
   itemTrackBy(index: number, item: ExerciseSet) {
     return item.id;

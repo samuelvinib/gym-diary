@@ -7,16 +7,23 @@ import { NewEntryFormReactiveComponent } from './new-entry-form-reactive/new-ent
 const routes: Routes = [
   {path:'', pathMatch:'full',redirectTo:'home'},
   {
-    path:'home',
-    component:DiaryComponent
+    path:'',
+    component:DiaryComponent,
+    title: 'Diary'
   },
   {
     path:'new-template',
     component: NewEntryFormTemplateComponent,
   },
   {
-    path:'new-reactive',
-    component: NewEntryFormReactiveComponent
+    path:'entry',
+    component: NewEntryFormReactiveComponent,
+    title: 'Entry Form'
+  },
+  {
+    path:'entry/:id',
+    component: NewEntryFormReactiveComponent,
+    title: 'Edit Entry'
   }
 ];
 
